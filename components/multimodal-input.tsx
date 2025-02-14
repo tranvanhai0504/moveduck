@@ -354,7 +354,7 @@ function PureSendButton({
       }}
       disabled={input.length === 0 || uploadQueue.length > 0}
     >
-      <MoveRight size={14} />
+      <MoveRight size={14} className="!text-black"/>
     </Button>
   );
 }

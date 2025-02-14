@@ -65,7 +65,7 @@ const PurePreviewMessage = ({
           {message.role === "assistant" && (
             <div className="translate-y-px">
               <Image
-                src="/images/favicon.ico"
+                src="/images/duck-avatar.svg"
                 width={32}
                 height={32}
                 alt="MoveStack logo"
@@ -106,7 +106,7 @@ const PurePreviewMessage = ({
 
                 <div
                   className={cn("flex flex-col gap-4", {
-                    "bg-primary text-primary-foreground px-3 py-2 rounded-xl":
+                    "bg-primary text-black px-3 py-2 rounded-xl":
                       message.role === "user",
                   })}
                 >
