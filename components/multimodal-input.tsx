@@ -23,13 +23,14 @@ import { useLocalStorage, useWindowSize } from "usehooks-ts";
 
 import { sanitizeUIMessages } from "@/lib/utils";
 
-import { ArrowUpIcon, PaperclipIcon, StopIcon } from "./icons";
+import { PaperclipIcon, StopIcon } from "./icons";
 import { PreviewAttachment } from "./preview-attachment";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { SuggestedActions } from "./suggested-actions";
 import equal from "fast-deep-equal";
 import { useWallet } from "@razorlabs/razorkit";
+import { MoveRight } from "lucide-react";
 
 function PureMultimodalInput({
   chatId,
@@ -88,7 +89,6 @@ function PureMultimodalInput({
   const resetHeight = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = "98px";
     }
   };
 
@@ -199,11 +199,11 @@ function PureMultimodalInput({
 
   return (
     <div className="relative w-full flex flex-col gap-4">
-      {messages.length === 0 &&
+      {/* {messages.length === 0 &&
         attachments.length === 0 &&
         uploadQueue.length === 0 && (
           <SuggestedActions append={append} chatId={chatId} />
-        )}
+        )} */}
 
       <input
         type="file"
@@ -236,15 +236,15 @@ function PureMultimodalInput({
 
       <Textarea
         ref={textareaRef}
-        placeholder="Send a message..."
+        placeholder="Type a command or / for suggestions..."
         value={input}
         onChange={handleInput}
         className={cx(
-          "min-h-[24px] max-h-[calc(75dvh)] overflow-hidden resize-none rounded-2xl !text-base bg-muted pb-10 dark:border-zinc-700",
+          "min-h-[24px] max-h-[calc(75dvh)] overflow-hidden resize-none p-4 rounded-2xl !text-base border-0",
           className
         )}
         disabled={!wallet.connected}
-        rows={2}
+        rows={1}
         autoFocus
         onKeyDown={(event) => {
           if (event.key === "Enter" && !event.shiftKey) {
@@ -259,11 +259,11 @@ function PureMultimodalInput({
         }}
       />
 
-      <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start">
+      {/* <div className="absolute bottom-0 p-2 w-fit flex flex-row justify-start">
         <AttachmentsButton fileInputRef={fileInputRef} isLoading={isLoading} />
-      </div>
+      </div> */}
 
-      <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 p-2 w-fit flex flex-row justify-end">
         {isLoading ? (
           <StopButton stop={stop} setMessages={setMessages} />
         ) : (
@@ -354,7 +354,7 @@ function PureSendButton({
       }}
       disabled={input.length === 0 || uploadQueue.length > 0}
     >
-      <ArrowUpIcon size={14} />
+      <MoveRight size={14} />
     </Button>
   );
 }

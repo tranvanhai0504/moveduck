@@ -24,8 +24,8 @@ export function AppSidebar() {
 
   const wallet = useWallet();
   return (
-    <Sidebar className="group-data-[side=left]:border-r-0">
-      <SidebarHeader>
+    <Sidebar className="group-data-[side=left]:border-r-0 p-6 pe-0 !bg-transparent rounded-2xl overflow-hidden max-h-full">
+      <SidebarHeader className="rounded-t-2xl bg-white overflow-hidden">
         <SidebarMenu>
           <div className="flex flex-row justify-between items-center">
             <Link
@@ -59,10 +59,12 @@ export function AppSidebar() {
           </div>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-white overflow-hidden">
         <SidebarHistory userId={wallet.address as string} />
       </SidebarContent>
-      <SidebarFooter>{wallet.connected && <SidebarUserNav />}</SidebarFooter>
+      <SidebarFooter className="bg-white rounded-b-2xl">
+        {wallet.connected && <SidebarUserNav />}
+      </SidebarFooter>
     </Sidebar>
   );
 }
