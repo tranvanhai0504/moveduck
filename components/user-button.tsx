@@ -50,9 +50,8 @@ const UserButton = () => {
       {wallet.connected && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button className="flex py-1.5 px-4 h-fit md:h-[34px] order-4 md:ml-auto rounded-lg">
+            <Button className="flex py-1.5 px-4 h-fit md:h-[34px] order-4 w-full rounded-lg">
               {shortenWalletAddress(wallet.address || "")}
-              <ChevronDown />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 border me-4 text-center">

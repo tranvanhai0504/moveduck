@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   useSidebar,
@@ -15,6 +16,7 @@ import {
 import Link from "next/link";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { useWallet } from "@razorlabs/razorkit";
+import { SidebarUserNav } from "./sidebar-user-nav";
 
 export function AppSidebar() {
   const router = useRouter();
@@ -60,7 +62,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarHistory userId={wallet.address as string} />
       </SidebarContent>
-      {/* <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter> */}
+      <SidebarFooter>{wallet.connected && <SidebarUserNav />}</SidebarFooter>
     </Sidebar>
   );
 }

@@ -2,8 +2,6 @@ import { put } from "@vercel/blob";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 
-import privy from "../../privy";
-
 // Use Blob instead of File since File is not available in Node.js environment
 const FileSchema = z.object({
   file: z
@@ -18,15 +16,7 @@ const FileSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  const cookieAuthToken = request.cookies.get("privy-token");
-
   try {
-    const claims = await privy.verifyAuthToken(cookieAuthToken?.value ?? "");
-
-    if (!claims || !claims.userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     if (request.body === null) {
       return new Response("Request body is empty", { status: 400 });
     }
