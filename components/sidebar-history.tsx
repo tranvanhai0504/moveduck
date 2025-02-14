@@ -6,7 +6,6 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import { memo, useEffect, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
-import type { User } from "@privy-io/react-auth";
 
 import {
   CheckCircleFillIcon,
@@ -47,6 +46,7 @@ import {
 import type { Chat } from "@/lib/db/schema";
 import { fetcher } from "@/lib/utils";
 import { useChatVisibility } from "@/hooks/use-chat-visibility";
+import { useWallet } from "@razorlabs/razorkit";
 
 type GroupedChats = {
   today: Chat[];
@@ -133,29 +133,34 @@ export const ChatItem = memo(PureChatItem, (prevProps, nextProps) => {
   return true;
 });
 
-export function SidebarHistory({ user }: { user: User | null }) {
+export function SidebarHistory({ userId }: { userId: string }) {
   const { setOpenMobile } = useSidebar();
   const { id } = useParams();
   const pathname = usePathname();
+  console.log("userId", userId)
   const {
     data: history,
     isLoading,
     mutate,
-  } = useSWR<Array<Chat>>(user ? "/api/history" : null, fetcher, {
+  } = useSWR<Array<Chat>>(userId ? `/api/history?userId=${userId}` : null, fetcher, {
     fallbackData: [],
   });
 
   useEffect(() => {
     mutate();
   }, [pathname, mutate]);
+  const wallet = useWallet();
 
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const router = useRouter();
   const handleDelete = async () => {
-    const deletePromise = fetch(`/api/chat?id=${deleteId}`, {
-      method: "DELETE",
-    });
+    const deletePromise = fetch(
+      `/api/chat?id=${deleteId}&userId=${wallet.address}`,
+      {
+        method: "DELETE",
+      }
+    );
 
     toast.promise(deletePromise, {
       loading: "Deleting chat...",
@@ -177,7 +182,7 @@ export function SidebarHistory({ user }: { user: User | null }) {
     }
   };
 
-  if (!user) {
+  if (!userId) {
     return (
       <SidebarGroup>
         <SidebarGroupContent>

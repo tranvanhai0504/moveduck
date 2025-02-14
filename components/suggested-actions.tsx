@@ -1,42 +1,42 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Button } from './ui/button';
-import type { ChatRequestOptions, CreateMessage, Message } from 'ai';
-import { memo } from 'react';
-import { usePrivy } from '@privy-io/react-auth';
+import { motion } from "framer-motion";
+import { Button } from "./ui/button";
+import type { ChatRequestOptions, CreateMessage, Message } from "ai";
+import { memo } from "react";
+import { useWallet } from "@razorlabs/razorkit";
 
 interface SuggestedActionsProps {
   chatId: string;
   append: (
     message: Message | CreateMessage,
-    chatRequestOptions?: ChatRequestOptions,
+    chatRequestOptions?: ChatRequestOptions
   ) => Promise<string | null | undefined>;
 }
 
 function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
-  const { ready, authenticated } = usePrivy();
+  const wallet = useWallet();
 
   const suggestedActions = [
     {
-      title: 'What is the price',
-      label: 'of Ethereum?',
-      action: 'What is the current price of ETH?',
+      title: "What is the price",
+      label: "of Ethereum?",
+      action: "What is the current price of ETH?",
     },
     {
-      title: 'Write code to',
+      title: "Write code to",
       label: `demonstrate djikstra's algorithm`,
       action: `Write code to demonstrate djikstra's algorithm`,
     },
     {
-      title: 'Help me write an essay',
+      title: "Help me write an essay",
       label: `about silicon valley`,
       action: `Help me write an essay about silicon valley`,
     },
     {
-      title: 'What is the weather',
-      label: 'in San Francisco?',
-      action: 'What is the weather in San Francisco?',
+      title: "What is the weather",
+      label: "in San Francisco?",
+      action: "What is the weather in San Francisco?",
     },
   ];
 
@@ -49,16 +49,16 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
           exit={{ opacity: 0, y: 20 }}
           transition={{ delay: 0.05 * index }}
           key={`suggested-action-${suggestedAction.title}-${index}`}
-          className={index > 1 ? 'hidden sm:block' : 'block'}
+          className={index > 1 ? "hidden sm:block" : "block"}
         >
           <Button
             variant="ghost"
-            disabled={!ready || !authenticated}
+            disabled={!wallet.connected}
             onClick={async () => {
-              window.history.replaceState({}, '', `/chat/${chatId}`);
+              window.history.replaceState({}, "", `/chat/${chatId}`);
 
               append({
-                role: 'user',
+                role: "user",
                 content: suggestedAction.action,
               });
             }}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { usePrivy } from "@privy-io/react-auth";
 
 import { PlusIcon } from "@/components/icons";
 import { SidebarHistory } from "@/components/sidebar-history";
@@ -15,12 +14,13 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { useWallet } from "@razorlabs/razorkit";
 
 export function AppSidebar() {
   const router = useRouter();
-  const { user } = usePrivy();
   const { setOpenMobile } = useSidebar();
 
+  const wallet = useWallet();
   return (
     <Sidebar className="group-data-[side=left]:border-r-0">
       <SidebarHeader>
@@ -58,7 +58,7 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarHistory user={user} />
+        <SidebarHistory userId={wallet.address as string} />
       </SidebarContent>
       {/* <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter> */}
     </Sidebar>

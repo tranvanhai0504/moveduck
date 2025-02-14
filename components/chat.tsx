@@ -14,7 +14,7 @@ import { MultimodalInput } from "./multimodal-input";
 import { Messages } from "./messages";
 import type { VisibilityType } from "./visibility-selector";
 import { useBlockSelector } from "@/hooks/use-block";
-
+import { useWallet } from "@razorlabs/razorkit";
 
 export function Chat({
   id,
@@ -30,6 +30,7 @@ export function Chat({
   isReadonly: boolean;
 }) {
   const { mutate } = useSWRConfig();
+  const wallet = useWallet();
 
   const {
     messages,
@@ -43,7 +44,7 @@ export function Chat({
     reload,
   } = useChat({
     id,
-    body: { id, modelId: selectedModelId },
+    body: { id, modelId: selectedModelId, userId: wallet.address },
     initialMessages,
     experimental_throttle: 100,
     onFinish: () => {

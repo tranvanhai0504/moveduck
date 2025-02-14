@@ -66,7 +66,6 @@ import {
   analyzeSAR,
   sanitizeResponseMessages,
 } from "@/lib/utils";
-import privy from "../privy";
 import { generateTitleFromUserMessage } from "../../actions";
 
 export const maxDuration = 60;
@@ -94,18 +93,13 @@ const allTools: AllowedTools[] = [
 ];
 
 export async function POST(request: NextRequest) {
-  const { id, messages, modelId }: { id: string; messages: Array<Message>; modelId: string } =
+  const {
+    id,
+    messages,
+    modelId,
+    userId,
+  }: { id: string; messages: Array<Message>; modelId: string; userId: string } =
     await request.json();
-
-  const cookieAuthToken = request.cookies.get("privy-token");
-
-  const claims = await privy.verifyAuthToken(cookieAuthToken?.value ?? "");
-
-  if (!claims || !claims.userId) {
-    return new Response("Unauthorized", { status: 401 });
-  }
-
-  const userId = claims.userId;
 
   const model = models.find((model) => model.id === modelId);
 
@@ -124,7 +118,9 @@ export async function POST(request: NextRequest) {
     const chat = await getChatById({ id });
 
     if (!chat) {
-      const title = await generateTitleFromUserMessage({ message: userMessage });
+      const title = await generateTitleFromUserMessage({
+        message: userMessage,
+      });
       await saveChat({ id, userId, title });
     }
 
@@ -132,14 +128,19 @@ export async function POST(request: NextRequest) {
 
     await saveMessages({
       messages: [
-        { ...userMessage, id: userMessageId, createdAt: new Date(), chatId: id },
+        {
+          ...userMessage,
+          id: userMessageId,
+          createdAt: new Date(),
+          chatId: id,
+        },
       ],
     });
 
     return createDataStreamResponse({
       execute: (dataStream) => {
         dataStream.writeData({
-          type: 'user-message-id',
+          type: "user-message-id",
           content: userMessageId,
         });
 
@@ -730,7 +731,6 @@ export async function POST(request: NextRequest) {
             },
           },
           onFinish: async ({ response }) => {
-            console.log("AI response generated:", response);
             if (userId) {
               try {
                 const responseMessagesWithoutIncompleteToolCalls =
@@ -772,27 +772,19 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.log(error)
-    return new Response('Unauthorized', { status: 401 });
+    console.log(error);
+    return new Response("Unauthorized", { status: 401 });
   }
 }
 
 export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
+  const userId = searchParams.get("userId");
 
   if (!id) {
     return new Response("Not Found", { status: 404 });
   }
-
-  const cookieAuthToken = request.cookies.get("privy-token");
-  const claims = await privy.verifyAuthToken(cookieAuthToken?.value ?? "");
-
-  if (!claims || !claims.userId) {
-    return new Response("Unauthorized", { status: 401 });
-  }
-
-  const userId = claims.userId;
 
   const chat = await getChatById({ id });
 

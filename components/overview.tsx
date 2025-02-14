@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { usePrivy } from "@privy-io/react-auth";
 import GradientText from "./gradient-text";
+import { useWallet } from "@razorlabs/razorkit";
 
 export const Overview = () => {
-  const { authenticated } = usePrivy();
+  const wallet = useWallet();
 
   return (
     <motion.div
@@ -15,7 +14,7 @@ export const Overview = () => {
       exit={{ opacity: 0, scale: 0.98 }}
       transition={{ delay: 0.5 }}
     >
-      {!authenticated ? (
+      {!wallet.connected ? (
         <div className="w-full flex flex-col items-center space-y-4">
           {/* <Image src={"/images/hand.png"} alt="hand" width={100} height={100} /> */}
           <GradientText

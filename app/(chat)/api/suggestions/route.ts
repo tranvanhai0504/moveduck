@@ -1,4 +1,4 @@
-import privy from "../privy";
+import { user } from "./../../../../lib/db/schema";
 import { getSuggestionsByDocumentId } from "@/lib/db/queries";
 import type { NextRequest } from "next/server";
 
@@ -10,15 +10,7 @@ export async function GET(request: NextRequest) {
     return new Response("Not Found", { status: 404 });
   }
 
-  const cookieAuthToken = request.cookies.get("privy-token");
-
   try {
-    const claims = await privy.verifyAuthToken(cookieAuthToken?.value ?? "");
-
-    if (!claims || !claims.userId) {
-      return new Response("Unauthorized", { status: 401 });
-    }
-
     const suggestions = await getSuggestionsByDocumentId({
       documentId,
     });
@@ -27,10 +19,6 @@ export async function GET(request: NextRequest) {
 
     if (!suggestion) {
       return Response.json([], { status: 200 });
-    }
-
-    if (suggestion.userId !== claims.userId) {
-      return new Response("Unauthorized", { status: 401 });
     }
 
     return Response.json(suggestions, { status: 200 });
