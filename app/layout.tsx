@@ -56,7 +56,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased">
+      <body className="antialiased bg-[#F4F5F7]">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

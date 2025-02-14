@@ -55,7 +55,7 @@ const PurePreviewMessage = ({
       >
         <div
           className={cn(
-            "flex gap-4 w-full group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl",
+            "flex gap-4 text-sm w-full group-data-[role=user]/message:ml-auto group-data-[role=user]/message:max-w-2xl",
             {
               "w-full": mode === "edit",
               "group-data-[role=user]/message:w-fit": mode !== "edit",
@@ -65,7 +65,7 @@ const PurePreviewMessage = ({
           {message.role === "assistant" && (
             <div className="translate-y-px">
               <Image
-                src="/images/favicon.ico"
+                src="/images/duck-avatar.svg"
                 width={32}
                 height={32}
                 alt="MoveStack logo"
@@ -106,7 +106,7 @@ const PurePreviewMessage = ({
 
                 <div
                   className={cn("flex flex-col gap-4", {
-                    "bg-primary text-primary-foreground px-3 py-2 rounded-xl":
+                    "bg-primary text-black px-3 py-2 rounded-xl":
                       message.role === "user",
                   })}
                 >

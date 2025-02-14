@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   useSidebar,
@@ -15,6 +16,7 @@ import {
 import Link from "next/link";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { useWallet } from "@razorlabs/razorkit";
+import { SidebarUserNav } from "./sidebar-user-nav";
 
 export function AppSidebar() {
   const router = useRouter();
@@ -22,8 +24,8 @@ export function AppSidebar() {
 
   const wallet = useWallet();
   return (
-    <Sidebar className="group-data-[side=left]:border-r-0">
-      <SidebarHeader>
+    <Sidebar className="group-data-[side=left]:border-r-0 p-6 pe-0 !bg-transparent rounded-2xl overflow-hidden max-h-full">
+      <SidebarHeader className="rounded-t-2xl bg-white overflow-hidden">
         <SidebarMenu>
           <div className="flex flex-row justify-between items-center">
             <Link
@@ -57,10 +59,12 @@ export function AppSidebar() {
           </div>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-white overflow-hidden">
         <SidebarHistory userId={wallet.address as string} />
       </SidebarContent>
-      {/* <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter> */}
+      <SidebarFooter className="bg-white rounded-b-2xl">
+        {wallet.connected && <SidebarUserNav />}
+      </SidebarFooter>
     </Sidebar>
   );
 }
