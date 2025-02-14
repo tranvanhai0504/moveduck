@@ -17,6 +17,7 @@ export const Overview = () => {
       {!wallet.connected ? (
         <div className="w-full flex flex-col items-center space-y-4">
           {/* <Image src={"/images/hand.png"} alt="hand" width={100} height={100} /> */}
+
           <GradientText
             className="text-2xl !font-bold text-center !cursor-default"
             colors={["#b0c4de", "#c0c0c0", "#d3d3d3", "#a9a9a9", "#808080"]}
@@ -29,6 +30,7 @@ export const Overview = () => {
       ) : (
         <div className="w-full flex flex-col items-center space-y-4">
           {/* <Image src={"/images/hand.png"} alt="hand" width={100} height={100} /> */}
+
           <GradientText
             className="text-2xl !font-bold text-center"
             colors={["#b0c4de", "#c0c0c0", "#d3d3d3", "#a9a9a9", "#808080"]}

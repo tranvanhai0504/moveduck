@@ -15,6 +15,7 @@ import { Messages } from "./messages";
 import type { VisibilityType } from "./visibility-selector";
 import { useBlockSelector } from "@/hooks/use-block";
 import { useWallet } from "@razorlabs/razorkit";
+import VariantsComponent from "./VariantsComponent";
 
 export function Chat({
   id,
@@ -62,8 +63,8 @@ export function Chat({
 
   return (
     <>
-      <div className="flex flex-col min-w-0 h-dvh bg-[#F4F5F7] p-6">
-        <div className="w-full h-dvh grid grid-cols-2 relative z-10 gap-4">
+      <div className="flex flex-col min-w-0 h-dvh bg-[#F4F5F7] p-6 overflow-hidden">
+        <div className="w-full h-dvh grid grid-cols-2 relative z-10 gap-4 ">
           {/* <ChatHeader
             chatId={id}
             selectedModelId={selectedModelId}
@@ -71,39 +72,51 @@ export function Chat({
             isReadonly={isReadonly}
           /> */}
           <div className="size-full flex flex-col gap-4">
-            <div className="flex-grow bg-white rounded-2xl shadow"></div>
-            <form className="flex mx-auto gap-2 w-full bg-white rounded-2xl shadow">
-              {!isReadonly && (
-                <MultimodalInput
-                  chatId={id}
-                  input={input}
-                  setInput={setInput}
-                  handleSubmit={handleSubmit}
-                  isLoading={isLoading}
-                  stop={stop}
-                  attachments={attachments}
-                  setAttachments={setAttachments}
-                  messages={messages}
-                  setMessages={setMessages}
-                  append={append}
-                />
-              )}
-            </form>
+            <VariantsComponent className="flex-grow" startDistance={-200}>
+              <div className="size-full bg-white rounded-2xl shadow"></div>
+            </VariantsComponent>
+            <VariantsComponent delay={0.5}>
+              <form className="flex mx-auto gap-2 w-full bg-white rounded-2xl shadow">
+                {!isReadonly && (
+                  <MultimodalInput
+                    chatId={id}
+                    input={input}
+                    setInput={setInput}
+                    handleSubmit={handleSubmit}
+                    isLoading={isLoading}
+                    stop={stop}
+                    attachments={attachments}
+                    setAttachments={setAttachments}
+                    messages={messages}
+                    setMessages={setMessages}
+                    append={append}
+                  />
+                )}
+              </form>
+            </VariantsComponent>
           </div>
           <div className="size-full flex flex-col gap-4">
-            <div className="flex-grow bg-white rounded-2xl shadow"></div>
-            <div className="h-1/3 bg-white rounded-2xl shadow">
-              <Messages
-                chatId={id}
-                isLoading={isLoading}
-                votes={votes}
-                messages={messages}
-                setMessages={setMessages}
-                reload={reload}
-                isReadonly={isReadonly}
-                isBlockVisible={isBlockVisible}
-              />
-            </div>
+            <VariantsComponent
+              className="flex-grow"
+              startDistance={-200}
+              delay={1}
+            >
+              <div className="size-full bg-white rounded-2xl shadow"></div>
+            </VariantsComponent>
+            <VariantsComponent className="h-1/3" delay={1.5}>
+              <div className="size-full bg-white rounded-2xl shadow">
+                <Messages
+                  chatId={id}
+                  isLoading={isLoading}
+                  votes={votes}
+                  messages={messages}
+                  setMessages={setMessages}
+                  reload={reload}
+                  isReadonly={isReadonly}
+                  isBlockVisible={isBlockVisible}
+                />
+              </div>
+            </VariantsComponent>
           </div>
         </div>
       </div>
