@@ -16,6 +16,7 @@ import type { VisibilityType } from "./visibility-selector";
 import { useBlockSelector } from "@/hooks/use-block";
 import { useWallet } from "@razorlabs/razorkit";
 import VariantsComponent from "./VariantsComponent";
+import ResultResponse from "./result-response";
 
 export function Chat({
   id,
@@ -65,15 +66,11 @@ export function Chat({
     <>
       <div className="flex flex-col min-w-0 h-dvh bg-[#F4F5F7] p-6 overflow-hidden">
         <div className="w-full h-dvh grid grid-cols-2 relative z-10 gap-4 ">
-          {/* <ChatHeader
-            chatId={id}
-            selectedModelId={selectedModelId}
-            selectedVisibilityType={selectedVisibilityType}
-            isReadonly={isReadonly}
-          /> */}
           <div className="size-full flex flex-col gap-4">
             <VariantsComponent className="flex-grow" startDistance={-200}>
-              <div className="size-full bg-white rounded-2xl shadow"></div>
+              <div className="size-full bg-white rounded-2xl shadow">
+                <ResultResponse />
+              </div>
             </VariantsComponent>
             <VariantsComponent delay={0.5}>
               <form className="flex mx-auto gap-2 w-full bg-white rounded-2xl shadow">
@@ -103,7 +100,7 @@ export function Chat({
             >
               <div className="size-full bg-white rounded-2xl shadow"></div>
             </VariantsComponent>
-            <VariantsComponent className="h-1/3" delay={1.5}>
+            <VariantsComponent className="max-h-60" delay={1.5}>
               <div className="size-full bg-white rounded-2xl shadow">
                 <Messages
                   chatId={id}

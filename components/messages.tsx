@@ -5,6 +5,8 @@ import { memo } from "react";
 import type { Vote } from "@/lib/db/schema";
 import equal from "fast-deep-equal";
 import { Overview } from "./overview";
+import { Button } from "./ui/button";
+import { Scan } from "lucide-react";
 
 interface MessagesProps {
   chatId: string;
@@ -63,8 +65,12 @@ function PureMessages({
 
       <div
         ref={messagesEndRef}
-        className="shrink-0 min-w-[24px] min-h-[24px]"
-      />
+        className="shrink-0 min-w-[24px] min-h-[24px] flex justify-end px-4"
+      >
+        <Button className="!p-0 bg-transparent hover:bg-transparent text-primary ">
+          <Scan size={36} className="!text-3xl" />
+        </Button>
+      </div>
     </div>
   );
 }
