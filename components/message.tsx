@@ -250,7 +250,7 @@ export const ThinkingMessage = () => {
       >
         <div className="translate-y-px">
           <Image
-            src="/images/favicon.ico"
+            src="/images/duck-avatar.svg"
             width={32}
             height={32}
             alt="MoveStack logo"

@@ -240,7 +240,7 @@ function PureMultimodalInput({
         value={input}
         onChange={handleInput}
         className={cx(
-          "min-h-[24px] max-h-[calc(75dvh)] overflow-hidden resize-none p-4 rounded-2xl !text-base border-0",
+          "min-h-[24px] max-h-[calc(14dvh)] overflow-hidden resize-none p-4 !pe-14 rounded-2xl !text-base border-0",
           className
         )}
         disabled={!wallet.connected}

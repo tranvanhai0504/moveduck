@@ -54,7 +54,7 @@ const UserButton = () => {
               {shortenWalletAddress(wallet.address || "")}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 border me-4 text-center">
+          <DropdownMenuContent className="w-56 border text-center">
             <DropdownMenuLabel className="flex items-center justify-center px-4 py-2 space-x-2">
               <Image
                 src="/images/movement-logo.png"
