@@ -15,7 +15,7 @@ const ResultResponse = () => {
           <h1 className="font-semibold text-2xl text-muted-foreground">
             Step {step}: {STEPS[step - 1].description}
           </h1>
-          <div className="h-[1000px]"></div>
+          <div className=""></div>
         </ScrollArea>
       </div>
       <div className="flex justify-between px-2 font-semibold">
