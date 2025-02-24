@@ -17,13 +17,13 @@ import { STEPS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function AppSidebar() {
-  const { setOpenMobile } = useSidebar();
+  const { setOpenMobile, open, setOpen } = useSidebar();
   const { step } = useStep();
 
   const wallet = useWallet();
 
   useEffect(() => {
-    setOpenMobile(true);
+    setOpen(true);
   }, []);
   return (
     <Sidebar className="group-data-[side=left]:border-r-0 p-6 pe-0 !bg-transparent rounded-2xl overflow-hidden max-h-full">
@@ -70,7 +70,7 @@ export function AppSidebar() {
         </div>
       </SidebarContent>
       <SidebarFooter className="bg-white rounded-b-2xl">
-        {wallet.connected && <SidebarUserNav />}
+        <SidebarUserNav />
       </SidebarFooter>
     </Sidebar>
   );

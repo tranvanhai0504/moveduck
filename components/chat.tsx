@@ -5,7 +5,6 @@ import { useChat } from "ai/react";
 import { useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
-import { ChatHeader } from "@/components/chat-header";
 import type { Vote } from "@/lib/db/schema";
 import { fetcher } from "@/lib/utils";
 
@@ -17,6 +16,7 @@ import { useBlockSelector } from "@/hooks/use-block";
 import { useWallet } from "@razorlabs/razorkit";
 import VariantsComponent from "./VariantsComponent";
 import ResultResponse from "./result-response";
+import PreviewResult from "./preview-result";
 
 export function Chat({
   id,
@@ -98,7 +98,9 @@ export function Chat({
               startDistance={-200}
               delay={1}
             >
-              <div className="size-full bg-white rounded-2xl shadow"></div>
+              <div className="size-full bg-white rounded-2xl shadow">
+                <PreviewResult />
+              </div>
             </VariantsComponent>
             <VariantsComponent className="max-h-60" delay={1.5}>
               <div className="size-full bg-white rounded-2xl shadow">
