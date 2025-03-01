@@ -21,6 +21,7 @@ import {
   getChatById,
   getDocumentById,
   saveChat,
+  saveDocument,
   saveMessages,
 } from "@/lib/db/queries";
 import type { Suggestion } from "@/lib/db/schema";
@@ -183,8 +184,9 @@ export async function POST(request: NextRequest) {
             },
             createDocument: {
               description:
-                "Create a document for a writing or content creation activities like image generation. This tool will call other functions that will generate the contents of the document based on the title and kind.",
+                "Create a document for a writing or content creation activities like image generation. This tool will call other functions that will generate the contents of the document based on the title and kind. The response will be have only one quiz base on the information provided by the user.",
               parameters: z.object({
+                information: z.string(),
                 title: z.string(),
                 kind: z.enum(["text", "code", "image"]),
               }),
@@ -216,8 +218,8 @@ export async function POST(request: NextRequest) {
                   const { fullStream } = streamText({
                     model: customModel(model.apiIdentifier),
                     system:
-                      "Write about the given topic. Markdown is supported. Use headings wherever appropriate.",
-                    prompt: title,
+                      "Write about quizzes for given topic. Use the information user provide. If that information is so little, use your knowledge. Markdown is supported. Use headings wherever appropriate. And give the JSON about all the quiz with format: [{question: string, answer: string[], correctAnswer: index of the answer}], only JSON string in the end of response, not include the header and description of this JSON",
+                    prompt: `topic: ${title}, information user input: ${userMessage.content}`,
                   });
 
                   for await (const delta of fullStream) {
@@ -279,6 +281,16 @@ export async function POST(request: NextRequest) {
                   });
 
                   dataStream.writeData({ type: "finish", content: "" });
+                }
+
+                if (userId) {
+                  await saveDocument({
+                    id,
+                    title,
+                    kind,
+                    content: draftText,
+                    userId,
+                  });
                 }
 
                 return {
@@ -389,6 +401,16 @@ export async function POST(request: NextRequest) {
                   });
 
                   dataStream.writeData({ type: "finish", content: "" });
+                }
+
+                if (userId) {
+                  await saveDocument({
+                    id,
+                    title: document.title,
+                    content: draftText,
+                    kind: document.kind,
+                    userId,
+                  });
                 }
 
                 return {

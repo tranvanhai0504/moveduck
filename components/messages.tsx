@@ -7,6 +7,7 @@ import equal from "fast-deep-equal";
 import { Overview } from "./overview";
 import { Button } from "./ui/button";
 import { Scan } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 interface MessagesProps {
   chatId: string;
@@ -38,7 +39,7 @@ function PureMessages({
   return (
     <div
       ref={messagesContainerRef}
-      className="flex flex-col min-w-0 gap-6 flex-1 overflow-y-scroll hidden-scroll pt-4 h-full"
+      className="flex flex-col min-w-0 gap-4 flex-1 overflow-y-scroll hidden-scroll pt-4 h-full"
     >
       {messages.length === 0 && <Overview />}
 
@@ -67,9 +68,20 @@ function PureMessages({
         ref={messagesEndRef}
         className="shrink-0 min-w-[24px] min-h-[24px] flex justify-end px-4"
       >
-        <Button className="!p-0 bg-transparent hover:bg-transparent text-primary ">
-          <Scan size={36} className="!text-3xl" />
-        </Button>
+        {messages.length > 0 && (
+          <div className="w-full relative flex justify-end px-4 grow items-end">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button className="!p-0 bg-transparent hover:bg-transparent text-primary ">
+                  <Scan size={36} className="!text-3xl" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Open</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+        )}
       </div>
     </div>
   );
