@@ -1,44 +1,82 @@
-import { useGenerateImage } from "@/hooks/use-generate-image";
 import useResultStore from "@/stores/use-result-store";
 import Image from "next/image";
 import { Skeleton } from "./ui/skeleton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useImagesStore from "@/stores/use-images-store";
+
+const prompt =
+  "An animated character, resembling a yellow duck, wearing glasses and a white lab coat. The character stands in front of a large whiteboard that reads 'topic'. The background appears to be a room with a window, and there's a logo of 'Movement' at the bottom right corner of the image replace A stylized blue fish, predominantly in shades of blue and white. The fish appears to be in mid-jump or leap, with its body curved upwards and its tail trailing behind. The background is a light blue grid pattern, and the fish is positioned centrally, making it the focal point of the image.";
+
+type ImageGen = {
+  prompt: string;
+  resolution: string;
+  is_image_safe: boolean;
+  seed: number;
+  url: string;
+};
 
 const ImageGenerator = () => {
   const { data, setResult } = useResultStore();
-  const [imageResponse, setImageResponse] = useState([
-    "https://plum-active-landfowl-217.mypinata.cloud/ipfs/bafybeiacddi327dpifgehjhinzql7u5dmpoq2lvvbeqjkjaguxy5e6feva",
-    "https://plum-active-landfowl-217.mypinata.cloud/ipfs/bafkreicspk4vjdydxns5jdpfseaablcvc7soy6xxewar5iotrlntxxssyu",
-    "https://plum-active-landfowl-217.mypinata.cloud/ipfs/bafkreidhesv3fdzwdj526y23hznxwsqqabdcwr3t4p7a5josgieudwqute",
-  ]);
+  const { images, addImage } = useImagesStore();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
-    imageResponse.findIndex((url) => url === data.image)
+    images.findIndex((url) => url === data.image)
   );
+  const [isLoading, setIsLoading] = useState(false);
+  const [imagesGen, setImagesGen] = useState<{ data: ImageGen[] } | null>(null);
 
-  // const {
-  //   data: imageResponse,
-  //   isLoading,
-  //   generateImage,
-  // } = useGenerateImage(
-  //   "A serene tropical beach scene. Dominating the foreground are tall palm trees with lush green leaves, standing tall against a backdrop of a sandy beach. The beach leads to the azure waters of the sea, which gently kisses the shoreline. In the distance, there is an island or landmass with a silhouette of what appears to be a lighthouse or tower. The sky above is painted with fluffy white clouds, some of which are tinged with hues of pink and orange, suggesting either a sunrise or sunset."
-  // );
+  useEffect(() => {
+    const fetchImages = async () => {
+      if (!prompt) return;
 
-  // useEffect(() => {
-  //   if (isLoading) return;
-  //   if (imageResponse) return;
+      setIsLoading(true);
+      try {
+        const body = {
+          image_request: {
+            prompt: prompt.replace("topic", data.quiz?.question ?? ""),
+            aspect_ratio: "ASPECT_4_3",
+            model: "V_2_TURBO",
+            magic_prompt_option: "AUTO",
+            num_images: 4,
+          },
+        };
 
-  //   generateImage()?.then();
-  // }, [generateImage, imageResponse, isLoading]);
+        const response = await fetch("/api/generate-image", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+        const result = await response.json();
+        setImagesGen(result);
+      } catch (error) {
+        console.error("Error generating images:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  // if (false)
-  //   return (
-  //     <div className="grid grid-cols-2 grid-rows-2 gap-4 h-[500px] flex-grow w-2/3 mx-auto mt-10">
-  //       <Skeleton className="size-full" />
-  //       <Skeleton className="size-full" />
-  //       <Skeleton className="size-full" />
-  //       <Skeleton className="size-full" />
-  //     </div>
-  //   );
+    fetchImages();
+  }, [data.quiz?.question]);
+
+  useEffect(() => {
+    if (isLoading) return;
+    if (!imagesGen) return;
+
+    imagesGen.data.map((image) => {
+      addImage(image.url);
+    });
+  }, [imagesGen, isLoading, addImage]);
+
+  if (isLoading)
+    return (
+      <div className="grid grid-cols-2 grid-rows-2 gap-4  aspect-square flex-grow w-2/3 mx-auto mt-10">
+        <Skeleton className="size-full" />
+        <Skeleton className="size-full" />
+        <Skeleton className="size-full" />
+        <Skeleton className="size-full" />
+      </div>
+    );
 
   const handleImageSelect = (imageUrl: string, index: number) => {
     setSelectedImageIndex(index);
@@ -46,8 +84,8 @@ const ImageGenerator = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 grid-rows-2 gap-2 h-fit flex-grow w-2/3 mx-auto mt-10">
-      {imageResponse.map((item, index) => (
+    <div className="grid grid-cols-2 grid-rows-2 gap-2 h-fit flex-grow w-2/3 mx-auto mt-4">
+      {images.map((item, index) => (
         <div
           key={index}
           className={`size-full aspect-square rounded-xl relative cursor-pointer border-4 ${
@@ -57,10 +95,15 @@ const ImageGenerator = () => {
           }`}
           onClick={() => handleImageSelect(item, index)}
         >
-          <Image src={item} alt="image" fill className="z-20 rounded-lg" />
+          <Image
+            src={item}
+            alt="image"
+            fill
+            className="z-20 rounded-lg object-contain"
+          />
         </div>
       ))}
-      {Array.from({ length: 4 - imageResponse.length }).map((_, index) => (
+      {Array.from({ length: 4 - images.length }).map((_, index) => (
         <Skeleton key={index} className="size-full aspect-square" />
       ))}
     </div>

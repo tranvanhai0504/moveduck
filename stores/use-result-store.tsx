@@ -1,25 +1,17 @@
 import { create } from "zustand";
-import { ComponentResult } from "@/types/Result";
+import { ComponentResult } from "@/types/result";
 
 const resultInit: ComponentResult = {
-  title: "Quiz generated",
-  description: null,
+  title: "Moveduck - Quiz",
+  description: "",
   image: null,
   type: "Swap",
   color: {
     textColor: "#000000",
     backgroundColor: "#ffffff",
   },
-  tags: [],
-  quiz: {
-    question:
-      "What is the role of the Move Configuration file (.toml) in the Move package analogy?",
-    answerA: "Mixing ingredients",
-    answerB: "Delivering the cake",
-    answerC: "Baking the batter",
-    answerD: "Writing tests",
-    correctAnswer: "B",
-  },
+  quiz: undefined,
+  url: undefined,
 };
 
 const useResultStore = create<{

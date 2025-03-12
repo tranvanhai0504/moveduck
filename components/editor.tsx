@@ -22,7 +22,7 @@ import {
   suggestionsPlugin,
   suggestionsPluginKey,
 } from "@/lib/editor/suggestions";
-import { QuizResult } from "@/types/Result";
+import { QuizResult } from "@/types/result";
 
 type EditorProps = {
   content: string;

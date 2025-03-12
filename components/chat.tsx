@@ -2,7 +2,7 @@
 
 import type { Attachment, Message } from "ai";
 import { useChat } from "ai/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
 import type { Vote } from "@/lib/db/schema";
@@ -17,6 +17,8 @@ import { useWallet } from "@razorlabs/razorkit";
 import ResultResponse from "./result-response";
 import PreviewResult from "./preview-result";
 import AnimatedContent from "./animation-content";
+import PromptInput from "./prompt-input";
+import { useChat as useLocalChat } from "@/hooks/use-chat";
 
 export function Chat({
   id,
@@ -33,6 +35,7 @@ export function Chat({
 }) {
   const { mutate } = useSWRConfig();
   const wallet = useWallet();
+  const { clearHistory } = useLocalChat();
 
   const {
     messages,
@@ -54,13 +57,12 @@ export function Chat({
     },
   });
 
-  const { data: votes } = useSWR<Array<Vote>>(
-    `/api/vote?chatId=${id}`,
-    fetcher
-  );
-
   const [attachments, setAttachments] = useState<Array<Attachment>>([]);
   const isBlockVisible = useBlockSelector((state) => state.isVisible);
+
+  useEffect(() => {
+    clearHistory();
+  }, [clearHistory]);
 
   return (
     <>
@@ -95,21 +97,7 @@ export function Chat({
               className=""
             >
               <form className="flex mx-auto gap-2 w-full bg-white rounded-2xl shadow">
-                {!isReadonly && (
-                  <MultimodalInput
-                    chatId={id}
-                    input={input}
-                    setInput={setInput}
-                    handleSubmit={handleSubmit}
-                    isLoading={isLoading}
-                    stop={stop}
-                    attachments={attachments}
-                    setAttachments={setAttachments}
-                    messages={messages}
-                    setMessages={setMessages}
-                    append={append}
-                  />
-                )}
+                {!isReadonly && <PromptInput />}
               </form>
             </AnimatedContent>
           </div>
@@ -147,7 +135,7 @@ export function Chat({
         messages={messages}
         setMessages={setMessages}
         reload={reload}
-        votes={votes}
+        votes={undefined}
         isReadonly={isReadonly}
       />
     </>

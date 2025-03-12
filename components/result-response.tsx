@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { STEPS } from "@/lib/constants";
 import useStep from "@/hooks/use-step";
 import { ScrollArea } from "./ui/scroll-area";
@@ -9,6 +9,7 @@ import AnimatedContent from "./animation-content";
 import ImageGenerator from "./images-generate";
 import ContentGenerate from "./content-generate";
 import StyleConfig from "./style-config";
+import ActionResponse from "./action-response";
 
 const ResultResponse = () => {
   const { step, nextStep, prevStep } = useStep();
@@ -21,7 +22,7 @@ const ResultResponse = () => {
 
   return (
     <div className="size-full flex flex-col py-6 3xl:py-10 px-4">
-      <ScrollArea className="size-full h-96 pe-2 flex-grow">
+      <ScrollArea className="size-full h-96 pe-3 flex-grow">
         {step === 1 && (
           <>
             <SplitText
@@ -85,7 +86,7 @@ const ResultResponse = () => {
             />
             {isTransitioning && (
               <AnimatedContent
-                distance={150}
+                distance={0}
                 direction="horizontal"
                 reverse={false}
                 config={{ tension: 80, friction: 20 }}
@@ -95,6 +96,37 @@ const ResultResponse = () => {
                 threshold={0.2}
               >
                 <StyleConfig />
+              </AnimatedContent>
+            )}
+          </>
+        )}
+        {step === 4 && (
+          <>
+            <SplitText
+              text={`Step ${step}: ${STEPS[step - 1].description}`}
+              className="font-semibold text-xl text-muted-foreground"
+              delay={15}
+              animationFrom={{ opacity: 0, transform: "translate3d(0,50px,0)" }}
+              animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
+              threshold={0.2}
+              rootMargin="-50px"
+              onLetterAnimationComplete={() => {
+                setIsTransitioning(true);
+              }}
+            />
+            {isTransitioning && (
+              <AnimatedContent
+                distance={0}
+                direction="horizontal"
+                reverse={false}
+                config={{ tension: 80, friction: 20 }}
+                initialOpacity={0}
+                animateOpacity
+                scale={1.1}
+                threshold={0.2}
+                className="h-full"
+              >
+                <ActionResponse />
               </AnimatedContent>
             )}
           </>

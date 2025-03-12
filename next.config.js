@@ -2,7 +2,7 @@
 const nextConfig = {
   // ... existing config ...
   images: {
-    domains: ['plum-active-landfowl-217.mypinata.cloud'],
+    domains: ['plum-active-landfowl-217.mypinata.cloud', "ideogram.ai"],
   },
   // ... existing config ...
 }

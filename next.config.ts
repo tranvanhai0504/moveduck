@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
         hostname: "ideogram.ai",
       },
       {
-        hostname: "plum-active-landfowl-217.mypinata.cloud",
+        hostname: "*",
       },
     ],
   },

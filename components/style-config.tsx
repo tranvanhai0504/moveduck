@@ -22,25 +22,40 @@ const StyleConfig = () => {
     data.color?.backgroundColor ?? ""
   );
 
-  const handleChoseTextColor = (color: string) => {
+  const [selectedButtonBgColor, setSelectedButtonBgColor] = useState<string>(
+    data.color?.buttonBackgroundColor ?? ""
+  );
+
+  const handleChooseTextColor = (color: string) => {
     setSelectedTextColor(color);
     setResult({
       ...data,
       color: {
         ...data.color,
-        textColor: color
-      }
+        textColor: color,
+      },
     });
   };
 
-  const handleChoseBgColor = (color: string) => {
+  const handleChooseBgColor = (color: string) => {
     setSelectedBgColor(color);
     setResult({
       ...data,
       color: {
         ...data.color,
-        backgroundColor: color
-      }
+        backgroundColor: color,
+      },
+    });
+  };
+
+  const handleChooseButtonBgColor = (color: string) => {
+    setSelectedButtonBgColor(color);
+    setResult({
+      ...data,
+      color: {
+        ...data.color,
+        buttonBackgroundColor: color,
+      },
     });
   };
 
@@ -78,7 +93,7 @@ const StyleConfig = () => {
                   : ""
               }`}
               style={{ backgroundColor: color }}
-              onClick={() => handleChoseTextColor(color)}
+              onClick={() => handleChooseTextColor(color)}
             />
           ))}
         </div>
@@ -95,7 +110,25 @@ const StyleConfig = () => {
                   : ""
               }`}
               style={{ backgroundColor: color }}
-              onClick={() => handleChoseBgColor(color)}
+              onClick={() => handleChooseBgColor(color)}
+            />
+          ))}
+        </div>
+
+        <h1 className="text-xl font-medium">Button Background Color:</h1>
+        <div className="flex gap-x-2">
+          {COLORS.map((color, index) => (
+            <div
+              key={index}
+              className={`size-8 rounded-full cursor-pointer ${
+                selectedButtonBgColor === color
+                  ? `border-2 ${
+                      color === "#000000" ? "border-white" : "border-black"
+                    }`
+                  : ""
+              }`}
+              style={{ backgroundColor: color }}
+              onClick={() => handleChooseButtonBgColor(color)}
             />
           ))}
         </div>

@@ -1,17 +1,18 @@
 export type ComponentResult = {
-  title?: string | null;
+  title: string;
   description?: string | null;
   image?: string | null;
   type: ComponentResultType | null;
   color?: ColorResult | null;
-  tags?: string[];
   quiz?: QuizResult;
+  url?: string;
 };
 
 export type ColorResult = {
   textColor?: string;
   backgroundColor?: string;
-}
+  buttonBackgroundColor?: string;
+};
 
 export type ComponentResultType = "Quizz" | "Swap" | "Buy";
 

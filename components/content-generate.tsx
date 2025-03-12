@@ -1,26 +1,88 @@
-import React from "react";
-import AnimatedContent from "./animation-content";
+import React, { useEffect, useState } from "react";
 import { TypeAnimation } from "react-type-animation";
+import { useChat } from "@/hooks/use-chat";
+import AnimatedContent from "./animation-content";
+import { QuizResult } from "@/types/result";
+import { cn } from "@/lib/utils";
+import useResultStore from "@/stores/use-result-store";
+import useImagesStore from "@/stores/use-images-store";
 
-const sampleContent = `Let's create a quiz to help you test your understanding of the Move package analogy you've provided. Here's a set of questions based on your explanation:\n\n1. What does the Move package represent in the cake baking analogy?\n2. How are Move Source Code Files (.move) similar to steps in a recipe book?\n3. What role does the Move Configuration file (.toml) play in the analogy?\n4. Why is a Test Directory important in ensuring code reliability?\n\nFeel free to answer these questions to test your understanding, and if you need further clarification or additional questions, just let me know!`;
+const ChooseQuiz = ({ quizzes }: { quizzes: QuizResult[] }) => {
+  const [selectedQuiz, setSelectedQuiz] = useState<QuizResult | null>(null);
+  const { data, setResult } = useResultStore();
+
+  const handleQuizSelect = (quiz: QuizResult) => {
+    setSelectedQuiz(quiz);
+    setResult({ ...data, quiz: quiz });
+  };
+
+  return (
+    <div className="w-full grid grid-cols-2 gap-4 mt-4">
+      {quizzes.map((quiz, index) => (
+        <div
+          key={index}
+          className={cn(
+            "bg-white rounded-xl p-4 shadow-md cursor-pointer hover:shadow-lg transition duration-300 h-full",
+            selectedQuiz === quiz && "bg-primary"
+          )}
+          onClick={() => handleQuizSelect(quiz)}
+        >
+          <h2 className="text-sm mb-2">
+            Question {index + 1}:{quiz.question}
+          </h2>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const ContentGenerate = () => {
-  const splitContent = sampleContent.split("\n");
+  // Directly destructure values from the useChat hook
+  const { history, isSending } = useChat();
+
   return (
-    <div className="mt-10">
-      {/* {splitContent.map((line, index) => (
-        <>
-          {line}
-          <br />
-        </>
-      ))} */}
-      <TypeAnimation
-        style={{ whiteSpace: "pre-line", height: "195px", display: "block" }}
-        sequence={[
-          sampleContent, // actual line-break inside string literal also gets animated in new line, but ensure there are no leading spaces
-        ]}
-        speed={99}
-      />
+    <div className="mt-10 flex flex-col gap-y-4">
+      {history.map((message) => {
+        if (message.role !== "user") {
+          return (
+            <div key={message.id}>
+              <TypeAnimation
+                style={{
+                  whiteSpace: "pre-line",
+                  display: "block",
+                }}
+                sequence={[message.content]}
+                speed={99}
+                cursor={false}
+              />
+              {message.action === "QUIZ_GEN" && message.params && (
+                <ChooseQuiz quizzes={message.params?.questions} />
+              )}
+            </div>
+          );
+        } else {
+          return (
+            <AnimatedContent
+              key={message.id}
+              config={{ friction: 5 }}
+              className="self-end max-w-[90%]"
+              direction="horizontal"
+              distance={20}
+            >
+              <div className="bg-primary text-black w-fit px-4 py-2 rounded-br-none rounded-xl">
+                {message.content}
+              </div>
+            </AnimatedContent>
+          );
+        }
+      })}
+
+      {/* Display the thinking indicator when isSending is true */}
+      {isSending && (
+        <div className="text-gray-500 animate-pulse">Thinking...</div>
+      )}
+
+      <div className="h-10" />
     </div>
   );
 };
