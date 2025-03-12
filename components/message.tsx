@@ -8,7 +8,7 @@ import { memo, useState } from "react";
 import type { Vote } from "@/lib/db/schema";
 
 import { DocumentToolCall, DocumentToolResult } from "./document";
-import { PencilEditIcon, } from "./icons";
+import { PencilEditIcon } from "./icons";
 import { Markdown } from "./markdown";
 import { MessageActions } from "./message-actions";
 import { PreviewAttachment } from "./preview-attachment";
@@ -87,23 +87,6 @@ const PurePreviewMessage = ({
 
             {message.content && mode === "view" && (
               <div className="flex flex-row gap-2 items-start">
-                {message.role === "user" && !isReadonly && (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        className="px-2 h-fit rounded-full text-muted-foreground opacity-0 group-hover/message:opacity-100"
-                        onClick={() => {
-                          setMode("edit");
-                        }}
-                      >
-                        <PencilEditIcon />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Edit message</TooltipContent>
-                  </Tooltip>
-                )}
-
                 <div
                   className={cn("flex flex-col gap-4", {
                     "bg-primary text-black px-3 py-2 rounded-xl":

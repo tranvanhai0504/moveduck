@@ -26,7 +26,7 @@ export function AppSidebar() {
     setOpen(true);
   }, []);
   return (
-    <Sidebar className="group-data-[side=left]:border-r-0 p-6 pe-0 !bg-transparent rounded-2xl overflow-hidden max-h-full">
+    <Sidebar className="group-data-[side=left]:border-r-0 p-4 pe-0 !bg-transparent rounded-2xl overflow-hidden max-h-full">
       <SidebarHeader className="rounded-t-2xl bg-white overflow-hidden">
         <SidebarMenu>
           <div className="flex flex-row justify-between items-center">

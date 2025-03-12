@@ -8,7 +8,7 @@ export const Overview = () => {
   return (
     <motion.div
       key="overview"
-      className="max-w-3xl mx-auto md:mt-20"
+      className="max-w-3xl mx-auto md:my-5 h-full flex flex-col items-center justify-center"
       initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.98 }}
@@ -32,13 +32,15 @@ export const Overview = () => {
           {/* <Image src={"/images/hand.png"} alt="hand" width={100} height={100} /> */}
 
           <GradientText
-            className="text-2xl !font-bold text-center"
+            className="text-2xl !font-bold text-center !cursor-default"
             colors={["#b0c4de", "#c0c0c0", "#d3d3d3", "#a9a9a9", "#808080"]}
             animationSpeed={4}
           >
-            Hi there!.
+            Hi there!. Moveduck here:D
           </GradientText>
-          <p className="text-muted-foreground">How can I help you today?</p>
+          <p className="text-muted-foreground">
+            Let create a greatest quizzes together!
+          </p>
         </div>
       )}
       {/* <div className="rounded-xl p-6 flex flex-col gap-8 leading-relaxed text-center max-w-xl">

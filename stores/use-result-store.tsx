@@ -1,21 +1,25 @@
 import { create } from "zustand";
-import { ComponentResult } from "@/types/Result";
+import { ComponentResult } from "@/types/result";
 
 const resultInit: ComponentResult = {
-    title: "Hello bro",
-    description: null,
-    image: null,
-    type: "Swap",
-    color: null,
-    tags: []
-}
+  title: "Moveduck - Quiz",
+  description: "",
+  image: null,
+  type: "Swap",
+  color: {
+    textColor: "#000000",
+    backgroundColor: "#ffffff",
+  },
+  quiz: undefined,
+  url: undefined,
+};
 
 const useResultStore = create<{
-    data: ComponentResult;
-    setResult: (result: ComponentResult) => void;
+  data: ComponentResult;
+  setResult: (result: ComponentResult) => void;
 }>((set) => ({
-    data: resultInit,
-    setResult: (result: ComponentResult) => set({ data: result }),
+  data: resultInit,
+  setResult: (result: ComponentResult) => set({ data: result }),
 }));
 
 export default useResultStore;

@@ -5,7 +5,7 @@ export const STEPS: Step[] = [
     step: 1,
     name: "Create Content",
     description:
-      "Loren ipsun dolor sit anet, consectetur adipisci elit, sed eiusnod tenpor incidunt ut labore et dolore nagna aliqua.",
+      "Create your content base on your prompt.",
   },
   {
     step: 2,
