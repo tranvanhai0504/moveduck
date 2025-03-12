@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import useQuiz from "@/hooks/use-quiz";
 import useResultStore from "@/stores/use-result-store";
 import { Loader2 } from "lucide-react";
-import PreviewResult from "./preview-result";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 import Link from "next/link";

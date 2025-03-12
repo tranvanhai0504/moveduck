@@ -27,6 +27,7 @@ const ImageGenerator = () => {
   useEffect(() => {
     const fetchImages = async () => {
       if (!prompt) return;
+      if (isLoading) return;
 
       setIsLoading(true);
       try {
