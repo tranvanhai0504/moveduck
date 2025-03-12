@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { TypeAnimation } from "react-type-animation";
 import { useChat } from "@/hooks/use-chat";
 import AnimatedContent from "./animation-content";
 import { QuizResult } from "@/types/result";
 import { cn } from "@/lib/utils";
 import useResultStore from "@/stores/use-result-store";
-import useImagesStore from "@/stores/use-images-store";
 
 const ChooseQuiz = ({ quizzes }: { quizzes: QuizResult[] }) => {
   const [selectedQuiz, setSelectedQuiz] = useState<QuizResult | null>(null);
