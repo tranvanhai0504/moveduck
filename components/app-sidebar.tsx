@@ -9,7 +9,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
-import { useWallet } from "@razorlabs/razorkit";
 import { SidebarUserNav } from "./sidebar-user-nav";
 import { useEffect } from "react";
 import useStep from "@/hooks/use-step";
@@ -17,10 +16,8 @@ import { STEPS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export function AppSidebar() {
-  const { setOpenMobile, open, setOpen } = useSidebar();
+  const { setOpenMobile, setOpen } = useSidebar();
   const { step } = useStep();
-
-  const wallet = useWallet();
 
   useEffect(() => {
     setOpen(true);

@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Toaster } from "sonner";
 
 import { ThemeProvider } from "@/components/theme-provider";
-import Providers from "@/components/wallet-provider";
+import { Provider } from "@/components/wallet-provider";
 import "./globals.css";
+
+import { Outfit } from "next/font/google";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://chat.vercel.ai"),
@@ -35,6 +37,8 @@ const THEME_COLOR_SCRIPT = `\
   updateThemeColor();
 })();`;
 
+const outfit = Outfit({ subsets: ["latin"] });
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -56,16 +60,16 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased bg-[#F4F5F7]">
+      <body className={outfit.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
           disableTransitionOnChange
         >
-          <Providers>
+          <Provider>
             <Toaster position="top-center" />
             {children}
-          </Providers>
+          </Provider>
         </ThemeProvider>
       </body>
     </html>

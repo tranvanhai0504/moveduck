@@ -14,8 +14,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { useWallet } from "@razorlabs/razorkit";
 import { CreateUserLogin } from "@/app/(auth)/actions";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 const TIMEOUT_COPY = 2000;
 
@@ -34,12 +34,12 @@ const UserButton = () => {
 
   const handleCreateUser = useCallback(async () => {
     if (!wallet.connected) return;
-    const address = wallet.address;
+    const address = wallet.account?.address.toString();
 
     if (!address) return;
 
     await CreateUserLogin(address, null, address);
-  }, [wallet.connected, wallet.address]);
+  }, [wallet.connected, wallet.account?.address]);
 
   useEffect(() => {
     handleCreateUser();
@@ -51,7 +51,7 @@ const UserButton = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button className="flex py-1.5 px-4 h-fit md:h-[34px] order-4 w-full rounded-lg">
-              {shortenWalletAddress(wallet.address || "")}
+              {shortenWalletAddress(wallet.account?.address.toString() || "")}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 border text-center">
@@ -63,14 +63,19 @@ const UserButton = () => {
                 height={20}
               />
               <Link
-                href={`https://explorer.movementlabs.xyz/account/${wallet.address}?network=testnet`}
+                href={`https://explorer.movementlabs.xyz/account/${wallet.account?.address.toString()}?network=testnet`}
                 target="_blank"
                 className="hover:underline"
               >
-                {shortenWalletAddress(wallet.address || "", 6)}
+                {shortenWalletAddress(
+                  wallet.account?.address.toString() || "",
+                  6
+                )}
               </Link>
               <Button
-                onClick={() => handleCopy(wallet.address || "")}
+                onClick={() =>
+                  handleCopy(wallet.account?.address.toString() || "")
+                }
                 disabled={copied}
                 className="!p-0 bg-transparent hover:bg-transparent text-primary"
               >

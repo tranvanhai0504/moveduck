@@ -1,8 +1,8 @@
 "use client";
 import { SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
-import LoginButton from "./login-button";
+import { LoginButton } from "./login-button";
 import UserButton from "./user-button";
-import { useWallet } from "@razorlabs/razorkit";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 export function SidebarUserNav() {
   const wallet = useWallet();

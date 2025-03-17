@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { cn } from "@/lib/utils";
-import { useWallet } from "@razorlabs/razorkit";
 import { useChat } from "@/hooks/use-chat";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
 import { MoveRight } from "lucide-react";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import useStep from "@/hooks/use-step";
 
 function SendButton({
   submitForm,
@@ -33,8 +34,13 @@ const PromptInput = ({ className }: { className?: string }) => {
   const wallet = useWallet();
   const [isLoading, setIsLoading] = useState(false);
   const { sendMessage } = useChat();
+  const { step, nextStep } = useStep();
 
   const submitForm = async () => {
+    if (step === 1) {
+      nextStep();
+    }
+
     if (!wallet.connected) {
       toast.error("Please connect your wallet!");
       return;
@@ -65,7 +71,6 @@ const PromptInput = ({ className }: { className?: string }) => {
         )}
         disabled={!wallet.connected}
         rows={1}
-        autoFocus
         onKeyDown={(event) => {
           if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault();

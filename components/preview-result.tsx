@@ -8,20 +8,17 @@ export default function PreviewResult() {
   const { data } = useResultStore();
 
   return (
-    <div className="preview-result px-6 pt-6 size-full flex flex-col">
-      <h1 className="text-xl font-semibold text-muted-foreground">Preview</h1>
-      <div
-        className={cn("h-[85dvh] overflow-y-scroll hidden-scroll flex py-5")}
-      >
+    <div className="preview-result px-6 pt-6 size-full flex flex-col justify-center">
+      <div className={cn(" flex py-5")}>
         {data.quiz ? (
           <div
-            className="mx-auto w-3/4 2xl:w-4/6 h-fit rounded-2xl border p-6 flex flex-col space-y-4"
+            className="mx-auto w-5/6 h-fit rounded-2xl border p-6 flex flex-col space-y-4"
             style={{
               color: data.color?.textColor,
               backgroundColor: data.color?.backgroundColor,
             }}
           >
-            <AspectRatio ratio={320 / 265}>
+            <AspectRatio ratio={320 / 200}>
               {data.image ? (
                 <Image
                   src={data.image}
@@ -40,18 +37,14 @@ export default function PreviewResult() {
               {data.quiz ? (
                 <div className="text-sm">
                   <p>{data.quiz.question}</p>
-                  <p>A: {data.quiz.answerA}</p>
-                  <p>B: {data.quiz.answerB}</p>
-                  <p>C: {data.quiz.answerC}</p>
-                  <p>D: {data.quiz.answerD}</p>
-                  <div className="mt-4 grid grid-cols-2 gap-2">
+                  <div className="mt-4 grid grid-cols-1 gap-2">
                     <span
                       className="w-full py-2 rounded-full text-center bg-primary"
                       style={{
                         backgroundColor: data.color?.buttonBackgroundColor,
                       }}
                     >
-                      A
+                      {data.quiz.answerA}
                     </span>
                     <span
                       className="w-full py-2 rounded-full text-center bg-primary"
@@ -59,7 +52,7 @@ export default function PreviewResult() {
                         backgroundColor: data.color?.buttonBackgroundColor,
                       }}
                     >
-                      B
+                      {data.quiz.answerB}
                     </span>
                     <span
                       className="w-full py-2 rounded-full text-center bg-primary"
@@ -67,7 +60,7 @@ export default function PreviewResult() {
                         backgroundColor: data.color?.buttonBackgroundColor,
                       }}
                     >
-                      C
+                      {data.quiz.answerC}
                     </span>
                     <span
                       className="w-full py-2 rounded-full text-center bg-primary"
@@ -75,7 +68,7 @@ export default function PreviewResult() {
                         backgroundColor: data.color?.buttonBackgroundColor,
                       }}
                     >
-                      D
+                      {data.quiz.answerD}
                     </span>
                   </div>
                 </div>
