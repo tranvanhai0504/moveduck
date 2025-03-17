@@ -14,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { CreateUserLogin } from "@/app/(auth)/actions";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 const TIMEOUT_COPY = 2000;
@@ -31,19 +30,6 @@ const UserButton = () => {
       setCopiedState(false);
     }, TIMEOUT_COPY);
   };
-
-  const handleCreateUser = useCallback(async () => {
-    if (!wallet.connected) return;
-    const address = wallet.account?.address.toString();
-
-    if (!address) return;
-
-    await CreateUserLogin(address, null, address);
-  }, [wallet.connected, wallet.account?.address]);
-
-  useEffect(() => {
-    handleCreateUser();
-  }, [handleCreateUser]);
 
   return wallet.connected ? (
     <>
