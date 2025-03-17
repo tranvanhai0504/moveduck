@@ -1,5 +1,6 @@
 export type Step = {
-    step: number;
-    name: string;
-    description?: string;
-}
+  label: string;
+  step: number;
+  name: string;
+  description?: string;
+};
