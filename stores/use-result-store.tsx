@@ -1,15 +1,13 @@
 import { create } from "zustand";
 import { ComponentResult } from "@/types/result";
+import { STYLES } from "@/types/style";
 
 const resultInit: ComponentResult = {
   title: "Moveduck - Quiz",
   description: "",
-  image: null,
-  type: "Swap",
-  color: {
-    textColor: "#000000",
-    backgroundColor: "#ffffff",
-  },
+  image: STYLES[0].image,
+  type: "Quiz",
+  style: STYLES[0],
   quiz: undefined,
   url: undefined,
 };

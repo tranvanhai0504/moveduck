@@ -35,7 +35,7 @@ const AnimateCard = ({
 
 export default async function Page() {
   return (
-    <div className="py-10 flex flex-col items-center mx-auto gap-y-4">
+    <div className="py-10 flex flex-col items-center justify-center size-full m-auto gap-y-4">
       <h1 className="text-3xl font-semibold">Simplified Understanding!</h1>
       <p>You can see full documentation in our docs</p>
       <div className="grid grid-cols-2 gap-4 w-full mt-10">

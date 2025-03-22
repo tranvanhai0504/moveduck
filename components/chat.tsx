@@ -50,7 +50,13 @@ export function Chat() {
           delay={1000}
         >
           <div className="size-full bg-white/50 rounded-3xl">
-            {step <= 2 ? <VideosReview /> : <PreviewResult />}
+            {step === 3 ? (
+              <div className="preview-result px-6 pt-6 size-full flex flex-col justify-center">
+                <PreviewResult />
+              </div>
+            ) : (
+              <VideosReview />
+            )}
           </div>
         </AnimatedContent>
       </div>

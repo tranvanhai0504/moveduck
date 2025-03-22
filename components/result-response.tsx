@@ -6,7 +6,7 @@ import ContentGenerate from "./content-generate";
 import StyleConfig from "./style-config";
 import ActionResponse from "./action-response";
 import PromptInput from "./prompt-input";
-import { ArrowBigDown, ArrowBigUp, ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowUp } from "lucide-react";
 
 const StepContainer = ({
   children,
@@ -33,8 +33,8 @@ const StepContainer = ({
       )}
 
       <span className="flex flex-col items-start px-4">
-        <h1 className="text-3xl font-medium">{title}</h1>
-        <p className="text-sm mt-2 !text-start">{description}</p>
+        <h1 className="text-3xl 2xl:text-4xl font-medium">{title}</h1>
+        <p className="text-sm 2xl:text-base mt-2 !text-start">{description}</p>
       </span>
       {children}
     </div>
@@ -125,7 +125,7 @@ const ResultResponse = () => {
           description={STEPS[3].description as string}
           stepIndex={4}
         >
-          <ActionResponse />
+          {step === 4 && <ActionResponse />}
         </StepContainer>
       </div>
 
