@@ -33,7 +33,7 @@ const StepContainer = ({
       )}
 
       <span className="flex flex-col items-start px-4">
-        <h1 className="text-3xl 2xl:text-4xl font-medium">{title}</h1>
+        <h1 className="text-3xl 3xl:text-4xl font-medium">{title}</h1>
         <p className="text-sm 2xl:text-base mt-2 !text-start">{description}</p>
       </span>
       {children}

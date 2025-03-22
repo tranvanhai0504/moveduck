@@ -10,6 +10,7 @@ const useQuiz = () => {
     answerD: string;
     correctAnswer: string;
     imageUrl: string;
+    styleId: number;
   }) => {
     try {
       const response = await fetch(`${url}/api/v1/quiz`, {

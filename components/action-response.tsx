@@ -31,6 +31,7 @@ const ActionResponse = () => {
       answerD: quiz.answerD,
       correctAnswer: quiz.correctAnswer,
       imageUrl: data.image || "",
+      styleId: data.style?.id ?? 0,
     })
       .then((res) => {
         const urlQuiz = res.data.url
