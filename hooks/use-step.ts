@@ -9,7 +9,7 @@ const useStep = create<{
   prevStep: () => void;
   setStep: (step: number) => void;
 }>((set) => ({
-  step: 1,
+  step: 4,
   nextStep: () =>
     set((state) => {
       if (state.step === MAX_STEP) return state;

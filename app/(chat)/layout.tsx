@@ -87,7 +87,7 @@ export default async function Layout({
           />
         </div>
         <NavHeader />
-        <div className="w-full relative z-10 grow">{children}</div>
+        <div className="w-full relative z-10 grow flex">{children}</div>
       </div>
     </>
   );

@@ -5,16 +5,19 @@ import { Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 import Link from "next/link";
+import useStep from "@/hooks/use-step";
+import PreviewResult from "./preview-result";
 
 const ActionResponse = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { data, setResult } = useResultStore();
   const { createQuiz } = useQuiz();
-
-  console.log(data);
+  const { step } = useStep();
 
   useEffect(() => {
+    if (step !== 4) return;
     if (isLoading || data.url) return;
+
     const quiz = data.quiz;
 
     if (!quiz) return;
@@ -48,29 +51,46 @@ const ActionResponse = () => {
       {isLoading ? (
         <Loader2 className=" animate-spin" />
       ) : (
-        <div className="flex flex-col space-y-2 w-3/4 mx-auto h-96 justify-center">
-          <Button
-            className="w-full rounded-full bg-muted hover:bg-muted text-black uppercase"
-            onClick={handleCopyUrl}
-          >
-            Copy Link
-          </Button>
-          <Button className="w-full rounded-full uppercase text-black">
-            Share
-          </Button>
-          <Button
-            className="w-full rounded-full bg-muted hover:bg-muted text-black uppercase"
-            asChild
-          >
-            <Link
-              href={`https://x.com/intent/tweet?text=${encodeURIComponent(
-                data.url as string
-              )}`}
-              target="_blank"
+        <div className="grid grid-cols-2 w-full gap-x-4">
+          <PreviewResult isFull />
+
+          <div className="flex flex-col space-y-2 size-full mx-auto justify-center">
+            <span className="border-2 line-clamp-1 border-black rounded-full p-2 flex justify-between items-center">
+              <span>{data.url}</span>
+              <button
+                className="w-fit rounded-full bg-black hover:bg-black text-white uppercase text-xs !py-1 px-2"
+                onClick={handleCopyUrl}
+              >
+                Copy Link
+              </button>
+            </span>
+            <Button
+              className="w-full rounded-full uppercase text-black"
+              asChild
             >
-              Share on X
-            </Link>
-          </Button>
+              <Link
+                href={`https://x.com/intent/tweet?text=${encodeURIComponent(
+                  data.url as string
+                )}`}
+                target="_blank"
+              >
+                Share
+              </Link>
+            </Button>
+            <Button
+              className="w-full rounded-full bg-muted hover:bg-muted text-black uppercase"
+              asChild
+            >
+              <Link
+                href={`https://x.com/intent/tweet?text=${encodeURIComponent(
+                  data.url as string
+                )}`}
+                target="_blank"
+              >
+                Share on X
+              </Link>
+            </Button>
+          </div>
         </div>
       )}
     </div>
