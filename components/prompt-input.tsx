@@ -62,7 +62,7 @@ const PromptInput = ({ className }: { className?: string }) => {
   return (
     <div className="relative w-full flex flex-col gap-4">
       <Textarea
-        placeholder="Type a command or / for suggestions..."
+        placeholder="Enter your prompt"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         className={cn(
