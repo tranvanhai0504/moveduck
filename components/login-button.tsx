@@ -64,7 +64,7 @@ export function LoginButton(walletSortingOptions: WalletSortingOptions) {
   return connected ? (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="rounded-3xl">
+        <Button className="rounded-3xl text-black">
           {account?.ansName ||
             truncateAddress(account?.address?.toString()) ||
             "Unknown"}

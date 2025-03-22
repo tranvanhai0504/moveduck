@@ -99,14 +99,14 @@ const ResultResponse = () => {
       >
         <div className="h-40 w-full" />
         <StepContainer
-          title={STEPS[0].label}
+          title={STEPS[0].name}
           description={STEPS[0].description as string}
           stepIndex={1}
         >
           <PromptInput />
         </StepContainer>
         <StepContainer
-          title={STEPS[1].label}
+          title={STEPS[1].name}
           description={STEPS[1].description as string}
           stepIndex={2}
         >
@@ -114,14 +114,14 @@ const ResultResponse = () => {
           <PromptInput />
         </StepContainer>
         <StepContainer
-          title={STEPS[2].label}
+          title={STEPS[2].name}
           description={STEPS[2].description as string}
           stepIndex={3}
         >
           <StyleConfig />
         </StepContainer>
         <StepContainer
-          title={STEPS[3].label}
+          title={STEPS[3].name}
           description={STEPS[3].description as string}
           stepIndex={4}
         >

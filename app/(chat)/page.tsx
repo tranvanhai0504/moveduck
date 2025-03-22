@@ -53,8 +53,8 @@ export default async function Page() {
           </div>
         </AnimateCard>
         <AnimateCard
-          title="Generate Profile Risk"
-          description="See your profile risk by filling out the form."
+          title="Learn Aptos through fun quizzes and memes"
+          description="Simply enter your link or text in the chat to start your interactive journey"
         >
           <div className="size-full flex flex-col gap-y-4">
             <div className="flex items-center gap-x-2 self-end">
@@ -78,16 +78,14 @@ export default async function Page() {
                 />
               </Avatar>
               <span className="rounded-full w-fit max-w-96 self-end text-xs flex h-full items-center">
-                Okay sir:D A wonderful quiz will come for you Okay sir:D A
-                wonderful quiz will come for you Okay sir:D A wonderful quiz
-                will come for you Okay sir:D A wonderful quiz will come for you
-                Okay sir:D A wonderful quiz will come for you Okay sir:D A
-                wonderful quiz will come for you
+                Great choice! I&apos;m generating a quiz tailored to your
+                profile. Based on your answers, this quiz will focus on [topic].
+                Let&apos;s get started!
               </span>
             </div>
             <div className="relative w-full flex flex-col gap-4 mt-4">
               <Input
-                placeholder="Type a command or / for suggestions..."
+                placeholder="What is Block-STM? Generate a quiz"
                 className={cn(
                   "min-h-[24px] max-h-[calc(14dvh)] overflow-hidden resize-none py-8 px-4 !pe-14 rounded-2xl !text-sm border"
                 )}
@@ -103,16 +101,16 @@ export default async function Page() {
         </AnimateCard>
         <div className="col-span-2 grid grid-cols-3 gap-x-4">
           <AnimateCard
-            title="Generate Profile Risk"
-            description="See your profile risk by filling out the form."
+            title="Sequential task linking"
+            description="Linking multiple tasks in a project flow."
           />
           <AnimateCard
-            title="Generate Profile Risk"
-            description="See your profile risk by filling out the form."
+            title="Enhanced input options"
+            description="User interaction capabilities."
           />
           <AnimateCard
-            title="Generate Profile Risk"
-            description="See your profile risk by filling out the form."
+            title="Secure data signing"
+            description="Focus on the security aspect of message authentication."
           />
         </div>
         <div className="col-span-2 flex justify-center">
