@@ -3,29 +3,28 @@ import { Step } from "@/types/step";
 export const STEPS: Step[] = [
   {
     step: 1,
-    name: "Create Content",
-    description: "Create your content base on your prompt.",
-    label: "Get your idea!",
+    name: "Create Your Quiz!",
+    description:
+      "Generate a quiz by entering text, a document link, or a Twitter post",
+    label: "Create Your Quiz!",
   },
   {
     step: 2,
-    name: "Pick A Meme",
+    name: "Step 2: Preview Your Quiz",
     description:
-      "Loren ipsun dolor sit anet, consectetur adipisci elit, sed eiusnod tenpor incidunt ut labore et dolore nagna aliqua.",
+      "Choose quiz content / Edit Question / Regenerate Quiz with AI",
     label: "Step 2",
   },
   {
     step: 3,
-    name: "Get Your Style",
-    description:
-      "Loren ipsun dolor sit anet, consectetur adipisci elit, sed eiusnod tenpor incidunt ut labore et dolore nagna aliqua.",
+    name: "Step 3: Make your style!",
+    description: "Choose an style to make your quiz pop!",
     label: "Step 3",
   },
   {
     step: 4,
-    name: "Share!",
-    description:
-      "Loren ipsun dolor sit anet, consectetur adipisci elit, sed eiusnod tenpor incidunt ut labore et dolore nagna aliqua.",
+    name: "Step 4: Share!",
+    description: "Share this quiz to your friends with X.",
     label: "Step 4",
   },
 ];

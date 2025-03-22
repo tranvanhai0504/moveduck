@@ -33,7 +33,11 @@ const ActionResponse = () => {
       imageUrl: data.image || "",
     })
       .then((res) => {
-        setResult({ ...data, url: res.data.url });
+        const urlQuiz = res.data.url
+          .toString()
+          .replace("undefined/0x", data.style?.id);
+
+        setResult({ ...data, url: urlQuiz });
         setIsLoading(false);
       })
       .finally(() => {
@@ -56,9 +60,9 @@ const ActionResponse = () => {
 
           <div className="flex flex-col space-y-2 size-full mx-auto justify-center">
             <span className="border-2 line-clamp-1 border-black rounded-full p-2 flex justify-between items-center">
-              <span>{data.url}</span>
+              <span className="line-clamp-1">{data.url}</span>
               <button
-                className="w-fit rounded-full bg-black hover:bg-black text-white uppercase text-xs !py-1 px-2"
+                className="w-fit rounded-full whitespace-nowrap bg-black hover:bg-black text-white uppercase text-xs !py-1 px-2"
                 onClick={handleCopyUrl}
               >
                 Copy Link
