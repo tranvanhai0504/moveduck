@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { LoginButton } from "../login-button";
 import Link from "next/link";
+import { Lock } from "lucide-react";
 
 function NavHeader() {
   const [position, setPosition] = useState({
@@ -28,9 +29,11 @@ function NavHeader() {
           <Link href="/generate">
             <Tab setPosition={setPosition}>Generate</Tab>
           </Link>
-          <Link href="/dashboard">
-            <Tab setPosition={setPosition}>Dashboard</Tab>
-          </Link>
+          <div className="cursor-not-allowed !text-black rounded-full opacity-80 flex justify-center items-center px-4">
+            <div className="flex items-center space-x-2">
+              <p>Dashboard</p> <Lock size={14} />
+            </div>
+          </div>
           <Cursor position={position} />
         </ul>
       </div>
