@@ -63,6 +63,6 @@ export const VIDEO_STEP: TVideoStep[] = [
     description:
       "Generate a shareable link for the quiz widget, which includes the image if provided.",
     label: "Step 3",
-    video: "/videos/sample.mp4",
+    video: "/videos/step-3.mp4",
   },
 ];
