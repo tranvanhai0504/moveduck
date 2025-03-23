@@ -15,7 +15,9 @@ function NavHeader() {
   return (
     <div className="w-full flex justify-between py-2 items-center px-10 z-20 relative">
       <div className="flex items-center gap-x-4">
-        <h1 className="text-2xl font-semibold">Move<b className="text-primary font-semibold">Duck</b></h1>
+        <h1 className="text-2xl font-semibold">
+          Move<b className="text-primary font-semibold">Duck</b>
+        </h1>
         <ul
           className="relative flex w-fit rounded-full bg-white p-1 text-base"
           onMouseLeave={() => setPosition((pv) => ({ ...pv, opacity: 0 }))}

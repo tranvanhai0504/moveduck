@@ -7,11 +7,13 @@ import { toast } from "sonner";
 import Link from "next/link";
 import useStep from "@/hooks/use-step";
 import PreviewResult from "./preview-result";
+import { Separator } from "./ui/separator";
 
 const ActionResponse = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [shortLink, setShortLink] = useState("");
   const { data, setResult } = useResultStore();
-  const { createQuiz } = useQuiz();
+  const { createQuiz, getShortLink } = useQuiz();
   const { step } = useStep();
 
   useEffect(() => {
@@ -45,6 +47,14 @@ const ActionResponse = () => {
         setIsLoading(false);
       });
   }, [data]);
+
+  useEffect(() => {
+    if (!data.url) return;
+
+    getShortLink(data.url).then((res) => {
+      setShortLink(res.hashtag);
+    });
+  }, [data.url]);
 
   const handleCopyUrl = () => {
     navigator.clipboard.writeText(data.url as string);
@@ -82,7 +92,7 @@ const ActionResponse = () => {
                 Share
               </Link>
             </Button>
-            <Button
+            {/* <Button
               className="w-full rounded-full bg-muted hover:bg-muted text-black uppercase"
               asChild
             >
@@ -93,6 +103,27 @@ const ActionResponse = () => {
                 target="_blank"
               >
                 Share on X
+              </Link>
+            </Button> */}
+
+            <div className="flex items-center justify-center px-4 gap-x-2 my-4">
+              <Separator className="w-20" />
+              <p>or</p>
+              <Separator className="w-20" />
+            </div>
+
+            <Button
+              className="w-full rounded-full text-black uppercase"
+              asChild
+              disabled={shortLink === ""}
+            >
+              <Link
+                href={`https://x.com/intent/tweet?text=${encodeURIComponent(
+                  shortLink
+                )}`}
+                target="_blank"
+              >
+                Share on X with short Link
               </Link>
             </Button>
           </div>

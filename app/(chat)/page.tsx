@@ -87,12 +87,12 @@ export default async function Page() {
               <Input
                 placeholder="What is Block-STM? Generate a quiz"
                 className={cn(
-                  "min-h-[24px] max-h-[calc(14dvh)] overflow-hidden resize-none py-8 px-4 !pe-14 rounded-2xl !text-sm border"
+                  "min-h-[24px] disabled:cursor-default max-h-[calc(14dvh)] overflow-hidden resize-none py-8 px-4 !pe-14 rounded-2xl !text-sm border"
                 )}
-                autoFocus
+                disabled
               />
               <div className="absolute top-1/2 right-2 -translate-y-1/2 p-2 w-fit flex flex-row justify-end">
-                <Button className="rounded-full p-1.5 h-fit border dark:border-zinc-600">
+                <Button className="rounded-full p-1.5 h-fit border dark:border-zinc-600 cursor-default">
                   <MoveRight size={14} className="!text-black" />
                 </Button>
               </div>
