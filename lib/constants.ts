@@ -28,3 +28,33 @@ export const STEPS: Step[] = [
     label: "Step 4",
   },
 ];
+
+export const VIDEO_STEP: Step[] = [
+  {
+    step: 1,
+    name: "How to work ?",
+    description: "Let us show you how to make your own quiz!",
+    label: "Create Your Quiz!",
+  },
+  {
+    step: 2,
+    name: "Step 1",
+    description:
+      "Add an option for users to upload an image along with their text/link input.",
+    label: "Step 1",
+  },
+  {
+    step: 3,
+    name: "Step 2",
+    description:
+      "Modify the quiz generation to incorporate the uploaded image, perhaps as a visual element in the quiz.",
+    label: "Step 2",
+  },
+  {
+    step: 4,
+    name: "Step 3",
+    description:
+      "Generate a shareable link for the quiz widget, which includes the image if provided.",
+    label: "Step 3",
+  },
+];

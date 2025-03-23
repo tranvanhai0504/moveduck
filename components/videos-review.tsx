@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
-import { STEPS } from "@/lib/constants";
+import { STEPS, VIDEO_STEP } from "@/lib/constants";
 import VideoPlayer from "./video-player";
 import { cn } from "@/lib/utils";
 import useStep from "@/hooks/use-step";
@@ -24,10 +24,10 @@ const VideosReview = () => {
         type="single"
         collapsible
         className="w-full"
-        defaultValue={STEPS[selectedStep].name}
-        value={STEPS[selectedStep].name}
+        defaultValue={VIDEO_STEP[selectedStep].name}
+        value={VIDEO_STEP[selectedStep].name}
       >
-        {STEPS.map((step) => {
+        {VIDEO_STEP.map((step) => {
           return (
             <AccordionItem value={step.name} key={step.step} className="py-4">
               <AccordionTrigger

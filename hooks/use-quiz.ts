@@ -75,11 +75,27 @@ const useQuiz = () => {
     }
   };
 
+  const getShortLink = async (link: string) => {
+    try {
+      const response = await fetch(`${url}/api/v1/link`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: link }),
+      });
+      return await response.json();
+    } catch (error) {
+      throw new Error("Failed to create short link");
+    }
+  };
+
   return {
     createQuiz,
     submitAnswer,
     getQuiz,
     getQuizByHash,
+    getShortLink,
   };
 };
 
