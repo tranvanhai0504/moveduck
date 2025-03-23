@@ -44,7 +44,7 @@ const VideosReview = () => {
                 </span>
               </AccordionTrigger>
               <AccordionContent>
-                <VideoPlayer src="/videos/sample.mp4" />
+                <VideoPlayer src={step.video} />
               </AccordionContent>
             </AccordionItem>
           );
