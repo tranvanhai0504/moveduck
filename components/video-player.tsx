@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { FaPlay, FaPause } from "react-icons/fa";
 
 const VideoPlayer = ({ src }: { src: string }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -25,7 +25,7 @@ const VideoPlayer = ({ src }: { src: string }) => {
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <video ref={videoRef} className="w-full">
+        <video ref={videoRef} className="w-full" autoPlay>
           <source src={src} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -36,9 +36,9 @@ const VideoPlayer = ({ src }: { src: string }) => {
           }`}
         >
           {isPlaying ? (
-            <FaPause className="text-4xl" />
+            <FaPause className="text-4xl text-primary" />
           ) : (
-            <FaPlay className="text-4xl" />
+            <FaPlay className="text-4xl text-primary" />
           )}
         </button>
       </div>
